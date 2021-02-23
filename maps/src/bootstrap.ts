@@ -6,11 +6,11 @@ const getApiKey = (): string => {
   return process.env.API_KEY;
 };
 
-function loadMapsApi() {
+function loadGoogleMapsApi() {
   let script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = `https://maps.googleapis.com/maps/api/js?key=${getApiKey()}`;
   document.body.insertBefore(script, document.getElementById('mainScript'));
 }
 
-loadMapsApi();
+loadGoogleMapsApi();

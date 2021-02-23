@@ -1,5 +1,4 @@
-import { User } from './User';
-import { Company } from './Company';
+const GOOGLE_MODULE_NOT_LOADED = 'google is not defined';
 
 interface Mappable {
   location: {
@@ -9,14 +8,14 @@ interface Mappable {
 }
 
 export class Map {
-  googleMap: google.maps.Map;
+  private googleMap: google.maps.Map;
 
   constructor(elementId: string) {
-    this.initNewMap(elementId);
+    this.initNewGoogleMap(elementId);
   }
 
-  addMarker(newMappable: Mappable): void {
-    this.addMarkerDelayed((mappable: Mappable, map: google.maps.Map): void => {
+  addGoogleMarker(newMappable: Mappable): void {
+    this.addGoogleMarkerDelayed((mappable: Mappable, map: google.maps.Map): void => {
       new google.maps.Marker({
         map: map,
         position: {
@@ -28,7 +27,7 @@ export class Map {
   }
 
   // Quick and simple solution to wait for google maps api to load in benefit of hiding the api key with dotenv
-  private initNewMap(elementId: string): void {
+  private initNewGoogleMap(elementId: string): void {
     try {
       const newCustomMap = new google.maps.Map(document.getElementById(elementId), {
         backgroundColor: 'white',
@@ -40,18 +39,18 @@ export class Map {
       });
       this.googleMap = newCustomMap;
     } catch (error) {
-      if (error.message.includes('google is not defined')) {
-        setTimeout(this.initNewMap, 100, elementId);
+      if (error.message.includes(GOOGLE_MODULE_NOT_LOADED)) {
+        setTimeout(this.initNewGoogleMap, 100, elementId);
       } else {
         throw error;
       }
     };
   }
-  private addMarkerDelayed(delayedFn: Function, mappable: Mappable) {
+  private addGoogleMarkerDelayed(delayedFn: Function, mappable: Mappable) {
     if (this.googleMap !== undefined) {
       delayedFn(mappable, this.googleMap);
     } else {
-      setTimeout(this.addMarkerDelayed, 100, delayedFn, mappable);
+      setTimeout(this.addGoogleMarkerDelayed, 100, delayedFn, mappable);
     }
   }
 }
