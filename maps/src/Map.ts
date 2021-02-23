@@ -1,10 +1,11 @@
 const GOOGLE_MODULE_NOT_LOADED = 'google is not defined';
 
-interface Mappable {
+export interface Mappable {
   location: {
     lat: number,
     lng: number
-  }
+  };
+  markerContent(): string;
 }
 
 export class Map {
@@ -16,12 +17,18 @@ export class Map {
 
   addGoogleMarker(newMappable: Mappable): void {
     this.addGoogleMarkerDelayed((mappable: Mappable, map: google.maps.Map): void => {
-      new google.maps.Marker({
+      const marker = new google.maps.Marker({
         map: map,
         position: {
           lat: mappable.location.lat,
           lng: mappable.location.lng
         }
+      });
+      marker.addListener('click', () => {
+        const infoWindow = new google.maps.InfoWindow({
+          content: mappable.markerContent()
+        });
+        infoWindow.open(map, marker);
       });
     }, newMappable);
   }
@@ -30,7 +37,7 @@ export class Map {
   private initNewGoogleMap(elementId: string): void {
     try {
       const newCustomMap = new google.maps.Map(document.getElementById(elementId), {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
         zoom: 1,
         center: {
           lat: 0,
