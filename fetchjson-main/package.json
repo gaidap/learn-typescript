@@ -1,0 +1,23 @@
+{
+  "name": "fetchjson",
+  "version": "1.0.0",
+  "description": "Example project to learn typescript syntax",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaidap/fetchjson.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gaidap/fetchjson/issues"
+  },
+  "homepage": "https://github.com/gaidap/fetchjson#readme"
+}
