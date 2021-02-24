@@ -13,4 +13,4 @@ const EventComponent: React.FC = () => {
   </div>;
 };
 
-export default EventComponent
+export default EventComponent;
