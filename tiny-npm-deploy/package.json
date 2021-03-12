@@ -2,14 +2,16 @@
   "name": "tiny-npm-deploy-gobble-gobble",
   "version": "1.0.0",
   "description": "",
+  "publishConfig": {
+    "cache": "~/.npm",
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "bin": "dist/index.js",
   "main": "index.js",
   "files": [
     "dist"
   ],
-  "publishConfig": {
-    "access": "public"
-  },
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
